@@ -1,0 +1,91 @@
+{% extends 'second-master.html'%}
+{% block secondmaster %}
+
+<div class="register-box">
+    <div class="register-logo">
+        <a href="http://erise.com.br"><b>E</b>Rise</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Cadastre o endereço de sua loja</p>
+
+            <form id="eriseregisteraddress" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="cep" name="storecep" id="cep">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="fas fa-archway"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Bairro" name="storeneighborhood" id="bairro">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="fas fa-address-book"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Rua" name="storestreet" id="rua">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="fas fa-road"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Número" name="storenumber" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="fas fa-sort-numeric-up-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Complemento" name="storecomplement">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="fas fa-info"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cidade" name="storecity" id="cidade">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="fas fa-city"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Estado" name="storeuf" id="uf">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="help-block"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <!-- /.col -->
+                    <div class="col-5">
+                        <button type="submit" id="btn-register-address" class="btn btn-primary btn-block" >Cadastrar</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <!-- <a href="{{url()}}login" class="text-center">Já tenho uma conta</a> -->
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+</div>
+
+{% endblock %}

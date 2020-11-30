@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{{session('user')}}
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ title }}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url() }}/public/admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{ url() }}/public/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url() }}/public/admin/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="{{pathjs()}}jQuery.js"></script>
+  <link rel="stylesheet" href="{{pathcss()}}bootstrap.css">
+</head>
+
+<body class="hold-transition login-page">
+
+  {% block secondmaster %} {% endblock %}
+
+  <!-- jQuery -->
+  <script src="{{ url() }}/public/admin/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ url() }}/public/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ url() }}/public/admin/dist/js/adminlte.min.js"></script>
+  <script src="{{ pathjs()}}login.js"></script>
+  
+  <script src="{{ pathjs() }}jquery.maskdeinput.min.js"></script>
+
+  <script src="{{ pathjs()}}main.js"></script>
+  <script>
+
+    $(document).ready(function () {
+      const URL = 'http://admin.erise.com.br';
+      $("#btn-register-address").click(function (e) {
+        e.preventDefault();
+        var formData = new FormData($('#eriseregisteraddress')[0]);
+        console.log(formData)
+        $.ajax({
+          url: URL + '/createstore/registerAddress',
+          type: 'POST',
+          data: formData,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            console.log(response.message);
+            if (response.status != 0) {
+              $('input').removeClass('is-invalid').addClass('is-valid');
+              $('.help-block').html(response.message);
+              window.location.href = URL + '/';
+            } else {
+              $('.help-block').html(response.message);
+              $("input").addClass('is-invalid').removeClass('is-valid');
+            }
+          },
+          error: function () {
+            console.log('erro');
+            $("input").addClass('is-invalid').removeClass('is-valid');
+          }
+        });
+      });
+    });
+
+  </script>
+</body>
+
+</html>

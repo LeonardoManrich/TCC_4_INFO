@@ -1,0 +1,200 @@
+{% extends 'master.html'%}{% block master %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 col-md-5 col-lg-5">
+                <h3>Informações da loja</h3>
+                <form id="store" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nome da loja" name="storename" value="{{store.store_name}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email" name="storeemail" value="{{store.store_email}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="cnpj" name="storecnpj" value="{{store.store_cnpj}}" readonly>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fas fa-id-card"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Telefone" name="storetel" id="telefone" value="{{store.store_tel}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-phone"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Razão sozial" name="storecorporatename" value="{{store.store_corporatename}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="help-block-st"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <!-- /.col -->
+                        <div class="col-5">
+                            <button type="submit" id="btn-editar-store" class="btn btn-primary btn-block">Editar</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+            </div>
+            <!-- Endereço -->
+            <div class="col-sm-4 col-md-5 col-lg-5">
+                <h3>Endereço</h3>
+                <form id="address" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="cep" name="storecep" id="cep" value="{{store.store_address_cep}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-archway"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Bairro" name="storeneighborhood" id="bairro" value="{{store.store_address_neighborhood}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-address-book"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Rua" name="storestreet" id="rua" value="{{store.store_address_street}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-road"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Número" name="storenumber" value="{{store.store_address_number}}" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-sort-numeric-up-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Complemento" name="storecomplement" value="{{store.store_address_complement}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Cidade" name="storecity" id="cidade" value="{{store.store_address_city}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-city"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Estado" name="storeuf" id="uf" value="{{store.store_address_uf}}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="help-block-ad"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <!-- /.col -->
+                        <div class="col-5">
+                            <button type="submit" id="btn-editar-address" class="btn btn-primary btn-block" >Editar</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+    $(function () {
+      const URL = 'http://admin.erise.com.br';
+      $("#btn-editar-store").click(function (e) {
+        e.preventDefault();
+        var formData = new FormData($('#store')[0]);
+        $.ajax({
+          url: URL + '/configuracoes/updateStore',
+          type: 'POST',
+          data: formData,
+          dataType: 'JSON',
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            if (response.status != 0) {
+              $("#store input").removeClass('is-invalid').addClass('is-valid');
+              $('.help-block-st').html(response.message);
+              window.location.href = URL + '/configuracoes';
+            } else {
+              $("#store input").removeClass('is-valid').addClass('is-invalid');
+              $('.help-block-st').html(response.message);
+            }
+          },
+          error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+            $("#store input").removeClass('is-valid').addClass('is-invalid');
+            $('.help-block-st').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+          }
+        });
+      });
+  
+      $("#btn-editar-address").click(function (e) {
+        e.preventDefault();
+        var formData = new FormData($('#address')[0]);
+        $.ajax({
+          url: URL + '/configuracoes/updateAddress',
+          type: 'POST',
+          data: formData,
+          dataType: 'JSON',
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            if (response.status != 0) {
+              $('#address input').removeClass('is-invalid').addClass('is-valid');
+              $('.help-block-ad').html(response.message);
+              window.location.href = URL + '/configuracoes';
+            } else {
+                $('#address input').removeClass('is-valid').addClass('is-invalid');
+              $('.help-block-ad').html(response.message);
+            }
+          },
+          error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+            $('#address input').removeClass('is-valid').addClass('is-invalid');
+            $('.help-block-ad').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+          }
+        });
+      });
+    });
+  </script>
+{% endblock %}

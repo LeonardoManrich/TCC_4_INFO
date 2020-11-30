@@ -1,0 +1,89 @@
+{% extends 'master.html' %}{% block master %}
+
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{url()}}">E-Rise COMMERCE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url()}}register">Crie sua loja</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{urladm()}}">Já tenho uma loja</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead text-center text-white">
+    <div class="masthead-content">
+      <div class="container">
+        <h1 class="masthead-heading mb-0">Seu ecommerce</h1>
+        <h2 class="masthead-subheading mb-0">Pode fazer a diferença</h2>
+        <a href="{{url()}}register" class="btn btn-primary btn-xl rounded-pill mt-5">Junte-se a nós</a>
+      </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+            <img class="img-fluid rounded" src="{{pathimg()}}img4.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+            <h2 class="display-4">Quem nós somos?</h2>
+            <p>Somos uma startup focada no desenvolvimento de soluções tecnológicas, sendo umas delas a E-Rise que é um sistema que constitui na criação de ecommerces de maneira fácil e rápido.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="p-5">
+            <img class="img-fluid rounded" src="{{pathimg()}}img2.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="p-5">
+            <h2 class="display-4">Sua loja ainda não esta on-line?</h2>
+            <p>Não se preocupe, temos a solução bem aqui, o sistema E-Rise cria sua loja virtual em questões de segundos. Conheça nosso serviço.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+            <img class="img-fluid rounded" src="{{pathimg()}}im3.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+            <h2 class="display-4">Não fique de fora da era digital</h2>
+            <p>No Brasil existem cerca de 930 mil sites com os fins eletrônicos, sua empresa já está on-line? Ainda não? Não se preocupe, temos a solução bem aqui.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}

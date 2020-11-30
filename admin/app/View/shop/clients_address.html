@@ -1,0 +1,48 @@
+{% extends 'master.html'%}{% block master %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 col-md-5 col-lg-5">
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nome" 
+                        value="{{cliente.store_user_name}}" readonly>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email"
+                        value="{{cliente.store_user_email}}" readonly>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="cpf" 
+                        value="{{cliente.store_user_cpf}}" readonly>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fas fa-id-card"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="telefone" 
+                        value="{{cliente.store_user_tel}}" readonly>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-phone"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Endereço -->
+        </div>
+    </div>
+</section>
+{% endblock %}

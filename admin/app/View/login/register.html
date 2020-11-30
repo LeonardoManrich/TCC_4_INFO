@@ -1,0 +1,73 @@
+{% extends 'master-login.html'%}{% block masterlogin %}
+
+<div class="register-box">
+    <div class="register-logo">
+        <a href="http://erise.com.br"><b>E</b>Rise</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Registre-se</p>
+
+            <form id="eriseregister" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nome completo" name="name">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email" name="email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="CPF" name="cpf">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fas fa-id-card"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Senha" name="pass">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Confirme a senha" name="cpass">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="help-block"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <!-- /.col -->
+                    <div class="col-5">
+                        <button type="submit" id="btn-register" class="btn btn-primary btn-block" >Cadastrar</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <!-- <a href="{{url()}}login" class="text-center">Já tenho uma conta</a> -->
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+</div>
+{% endblock %}

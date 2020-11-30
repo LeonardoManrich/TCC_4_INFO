@@ -1,0 +1,96 @@
+{% extends 'master.html' %}{% block master %}
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{url()}}">{{title}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+      aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Cadastrar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Entrar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Carrinho</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  {% for prod in product %}
+  <div class="container">
+    <div class="card card-solid">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="col-12">
+              <img src="{{path()}}files/products-imgs/{{ prod.prod_id }}/{{ prod.prod_img }}" class="product-image" alt="Product Image">
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <h3 class="my-3">{{ prod.prod_name }}</h3>
+            <hr>
+            Valor: <b>R$ {{ prod.prod_price }},00</b>
+            <hr>
+            Quant. Estoque:<b> {{ prod.prod_stock}}</b>
+            <hr>
+            Descrição breve:<b> {{ prod.prod_desc }} </b>
+            
+            <div class="mt-4">
+              <div class="btn btn-primary btn-lg btn-flat">
+                <i class="fas fa-cart-plus fa-lg mr-2"></i> 
+                <a href="{{url()}}carrinho/addcart/{{ prod.prod_id}}">
+                  Adicionar ao carrinho
+                </a>
+              </div>
+            </div>
+  
+            <div class="mt-4 product-share">
+              <a href="#" class="text-gray">
+                <i class="fab fa-facebook-square fa-2x"></i>
+              </a>
+              <a href="#" class="text-gray">
+                <i class="fab fa-twitter-square fa-2x"></i>
+              </a>
+              <a href="#" class="text-gray">
+                <i class="fas fa-envelope-square fa-2x"></i>
+              </a>
+              <a href="#" class="text-gray">
+                <i class="fas fa-rss-square fa-2x"></i>
+              </a>
+            </div>
+  
+          </div>
+        </div>
+        <div class="row mt-4">
+          <nav class="w-100">
+            <div class="nav nav-tabs" id="product-tab" role="tablist">
+              <!-- <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Descrição</a> -->
+              <a class="nav-item nav-link active" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="true">Detalhes</a>
+            </div>
+          </nav>
+          <div class="tab-content p-3" id="nav-tabContent">
+            <!-- <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> {{ prod.prod_desc }}</div> -->
+            <div class="tab-pane fade fade show active" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+              <p>Altura: {{ prod.prod_height }}</p>
+              <p>Largura: {{ prod.prod_width }}</p>
+              <p>Comprimento: {{ prod.prod_length }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    
+  </div>
+  {% endfor %}
+
+
+{% endblock %}

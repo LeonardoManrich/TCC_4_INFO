@@ -1,0 +1,52 @@
+{% extends 'master.html' %} {% block master %}
+<div class="content">
+    <div class="card">
+        <div class="card-header border-transparent">
+          <h3 class="card-title"></h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table m-0">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Valor</th>
+                <th class="text-right">Ação</th>
+              </tr>
+              </thead>
+              <tbody>
+                {% for request in requests %}
+                <tr>
+                    <td>{{request.store_user_id}}</td>
+                    <td>{{request.store_user_name}}</td>
+                    <td>{{request.cart_price}}</td>
+                    <td class="project-actions text-right">
+                        <a class="btn btn-info btn-sm" href="{{url()}}pedidos/view/{{request.store_user_id}}">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Editar
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="{{url()}}pedidos/delete/{{request.store_user_id}}">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Deletar
+                        </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.table-responsive -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+        </div>
+        <!-- /.card-footer -->
+      </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'master.html' %}{% block master %}
+<div class="wrapper fadeInDown">
+  <div class="row">
+    <div class="col">
+      <div id="formContent">
+        <h2>Entrar</h2>
+        <form id="store-user-login">
+          <input type="text" id="login" class="fadeIn second mt-5" name="email" placeholder="E-mail">
+          <input type="password" id="password" class="fadeIn third" name="password" placeholder="Senha">
+          <div class="help-block"></div>
+          <button class="btn btn-primary fadeIn fourth mb-4 mt-2" id="btn-login">Login</button>
+        </form>
+      </div>
+    </div>
+    <div class="col">
+      <div id="formContent">
+        <h2>Cadastro</h2>
+        <form method="post" id="store-user-register">
+          <input type="text" class="fadeIn second mt-5" name="name" placeholder="Nome">
+          <input type="text" class="fadeIn second " name="email" placeholder="E-mail">
+          <input type="text" class="fadeIn second " name="cpf" placeholder="CPF">
+          <input type="text" class="fadeIn second " id="telefone" name="tel" placeholder="telefone">
+          <input type="password" id="password" class="fadeIn third" name="pass" placeholder="Senha">
+          <div class="help-block-ca"></div>
+          <button class="btn btn-primary fadeIn fourth mb-4 mt-2" id="btn-register"> Cadastre-se</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  $(function () {
+    const URL = "{{url()}}";
+    $("#btn-register").click(function (e) {
+      e.preventDefault();
+      var formData = new FormData($('#store-user-register')[0]);
+      console.log(formData)
+      $.ajax({
+        url: URL + '/register/register',
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          console.log(response.message);
+          if (response.status != 0) {
+            $("input").removeClass('is-invalid').addClass('is-valid');
+            $('.help-block-ca').html(response.message);
+            window.location.href = '{{url()}}login';
+          } else {
+            $("input").addClass('is-invalid').removeClass('is-valid');
+            $('.help-block-ca').html(response.message);
+          }
+        },
+        error: function () {
+          console.log('erro');
+          $("input").addClass('is-invalid').removeClass('is-valid');
+        }
+      });
+    });
+
+    $("#btn-login").click(function (e) {
+      e.preventDefault();
+      var formData = new FormData($('#store-user-login')[0]);
+      console.log(formData)
+      $.ajax({
+        url: URL + '/login/logIn',
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          console.log(response.message);
+          if (response.status != 0) {
+            $("input").removeClass('is-invalid').addClass('is-valid');
+            $('.help-block').html(response.message);
+            window.location.href = '{{url()}}';
+          } else {
+            $("input").addClass('is-invalid').removeClass('is-valid');
+            $('.help-block').html(response.message);
+          }
+        },
+        error: function () {
+          console.log('erro');
+          $("input").addClass('is-invalid').removeClass('is-valid');
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

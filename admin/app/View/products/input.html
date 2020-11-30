@@ -1,0 +1,351 @@
+{% extends 'master.html'%} {% block master %}
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <!-- /.col -->
+
+  </div><!-- /.container-fluid -->
+</div><!-- /.content -->
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Produto</h3>
+      </div>
+      <div class="card-body" >
+        {% if act != 'edit' %}
+        <form id="product">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Nome:</span>
+            </div>
+            <input type="text" class="form-control" name="prodname">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Ref:</span>
+            </div>
+            <input type="text" class="form-control" name="prodref">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">R$:</span>
+            </div>
+            <input type="number" class="form-control" name="prodprice">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Descrição</span>
+            </div>
+            <textarea class="form-control" name="proddesc"></textarea>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Estoque</span>
+            </div>
+            <input type="number" class="form-control" name="prodstock">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Largura</span>
+            </div>
+            <input type="number" class="form-control" name="prodwidth">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Altura</span>
+            </div>
+            <input type="number" class="form-control" name="prodheight">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Comprimento</span>
+            </div>
+            <input type="number" class="form-control" name="prodlength">
+          </div>
+          <div class="row">
+            <div class="pl-3 mr-2 mb-3">
+              <div class="form-group">
+                <label for="prodimg">Imagem</label>
+
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="prodimg" name="prodimg">
+                  <label class="custom-file-label" for="prodimg">Escolher Arquivo</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="ml-5 mb-3">
+              <!-- select -->
+              <div class="form-group">
+                <label for="prodcat">Categoria</label>
+
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categoria:
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                    {% for category in categories %}
+                    <div class="pr-2 pl-2">
+                      
+                      <label for="{{category.cat_id}}" style="white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      
+                      ">
+                        <input type="checkbox" id="prodcat" name="{{category.cat_slug}}" value="{{category.cat_id}}">
+                        {{category.cat_name}}</label>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <!-- select -->
+              <div class="form-group">
+                <label for="prodstatus">Status</label>
+                <select class="form-control" id="prodStatus" name="prodstatus">
+                  <option value="1">Ativo</option>
+                  <option value="0">Inativo</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-8 col-md-8 col-lg-8">
+              <div class="col">
+                <img src="" alt="" class="img-fluid" id="imagem">
+              </div>
+            </div>
+          </div>
+          <div class="help-block"></div>
+          <button class="btn btn-primary" id="btn-enviar">Enviar</button>
+        </form>
+        {% else %}
+
+        <form id="product">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Nome:</span>
+            </div>
+            <input type="text" class="form-control" name="prodname" value="{{products.prod_name}}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Ref:</span>
+            </div>
+            <input type="text" class="form-control" name="prodref" value="{{products.prod_ref}}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">R$:</span>
+            </div>
+            <input type="number" class="form-control" name="prodprice" value="{{products.prod_price}}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Descrição</span>
+            </div>
+            <textarea class="form-control" name="proddesc">{{products.prod_desc}}</textarea>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Estoque</span>
+            </div>
+            <input type="number" class="form-control" name="prodstock" value="{{products.prod_stock}}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Largura</span>
+            </div>
+            <input type="number" class="form-control" name="prodwidth" value="{{products.prod_width}}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Altura</span>
+            </div>
+            <input type="number" class="form-control" name="prodheight" value="{{products.prod_height}}">
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Comprimento</span>
+            </div>
+            <input type="number" class="form-control" name="prodlength" value="{{products.prod_length}}">
+          </div>
+          <div class="row">
+            <div class="pl-3 mr-2 mb-3">
+              <div class="form-group">
+                <label for="prodimg">Imagem</label>
+
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="prodimg" name="prodimg">
+                  <label class="custom-file-label" for="prodimg">Escolher Arquivo</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="ml-5 mb-3">
+              <!-- select -->
+              <div class="form-group">
+                <label for="prodcat">Categoria</label>
+
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categoria:
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                    {% for category in categories %}
+                    <div class="form-control">
+                      {% if checkcat(products.prod_id, category.cat_id)  %}
+                      <input type="checkbox" id="prodcat" name="{{category.cat_slug}}" value="{{category.cat_id}}" checked>
+                      {% else %}
+                      <input type="checkbox" id="prodcat" name="{{category.cat_slug}}" value="{{category.cat_id}}">
+                      {% endif %}
+                      
+                      <label for="{{category.cat_id}}">{{category.cat_name}}</label>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <!-- select -->
+              <div class="form-group">
+                <label for="prodstatus">Status</label>
+                <select class="form-control" id="prodStatus" name="prodstatus">
+                  {% if products.prod_status == 1 %}
+                    <option value="1" selected="selected">Ativo</option>
+                    <option value="0">Inativo</option>
+                  {% else %}
+                    <option value="1">Ativo</option>
+                    <option value="0" selected="selected">Inativo</option>
+                  {% endif %}
+
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-8 col-md-8 col-lg-8">
+              <div class="col">
+                <img src="" alt="" class="img-fluid" id="imagem">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="img" value="{{products.prod_img}}">
+          <input type="hidden" value="{{products.prod_id}}" name="id">
+          <div class="help-block"></div>
+          <button class="btn btn-primary" id="btn-editar">Enviar</button>
+        </form>
+        {% endif %}
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  </div>
+</section>
+<script>
+
+  $(function () {
+    const URL = 'http://admin.erise.com.br';
+    $("#btn-enviar").click(function (e) {
+      e.preventDefault();
+      var formData = new FormData($('#product')[0]);
+      $.ajax({
+        url: URL + '/produtos/new',
+        type: 'POST',
+        data: formData,
+        dataType: 'JSON',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          if (response.status != 0) {
+            $("input").removeClass('is-invalid').addClass('is-valid');
+            $('.help-block').html(response.message);
+            window.location.href = URL + '/produtos';
+          } else {
+            $("input").removeClass('is-valid').addClass('is-invalid');
+            $('.help-block').html(response.message);
+          }
+        },
+        error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+          $("input").removeClass('is-valid').addClass('is-invalid');
+          $('.help-block').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+        }
+      });
+    });
+
+    $("#btn-editar").click(function (e) {
+      e.preventDefault();
+      var formData = new FormData($('#product')[0]);
+      $.ajax({
+        url: URL + '/produtos/update',
+        type: 'POST',
+        data: formData,
+        dataType: 'JSON',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          if (response.status != 0) {
+            $("input").removeClass('is-invalid').addClass('is-valid');
+            $('.help-block').html(response.message);
+            window.location.href = URL + '/produtos';
+          } else {
+            $("input").removeClass('is-valid').addClass('is-invalid');
+            $('.help-block').html(response.message);
+          }
+        },
+        error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+          $("input").removeClass('is-valid').addClass('is-invalid');
+          $('.help-block').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+        }
+      });
+    });
+
+    $("input[type=file]").on("change", function () {
+      var files = !!this.files ? this.files : [];
+      if (!files.length || !window.FileReader) return;
+
+      if (/^image/.test(files[0].type)) {
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+
+        reader.onload = function () {
+          $("#imagem").attr('src', this.result);
+        }
+      }
+    });
+  });
+
+</script>
+
+{% endblock %}

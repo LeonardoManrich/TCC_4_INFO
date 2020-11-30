@@ -1,0 +1,139 @@
+{% extends 'master.html' %} {% block master %}
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Produtos</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-primary">
+                    <a href="{{url()}}produtos/novo" class="text-light">
+                        Novo
+                    </a>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">
+
+                        </th>
+                        <th style="width: 15%">
+                            Nome
+                        </th>
+                        <th style="width: 15%">
+                            Ref
+                        </th>
+                        <th style="width: 1%" class="text-center">
+                            stock
+                        </th>
+                        <th style="width: 3%">
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prod in products %}
+                    <tr>
+                        <td>
+                            <img src="{{ urlStore() }}/files/products-imgs/{{ prod.prod_id }}/{{ prod.prod_img }}"
+                                alt="{{ bann.banner_img }}" class="img-thumbnail rounded" style="max-height: 70px;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    min-width: 100%;
+                                    max-width: 144px;
+                                ">
+                        </td>
+                        <td>
+                            {{prod.prod_name}}
+                        </td>
+                        <td>
+                            {{prod.prod_ref}}
+                        </td>
+
+                        <td>
+                            {{ prod.prod_stock }}
+                        </td>
+
+                        <td class="project-state">
+                            {% if prod.prod_status == 1 %}
+                            <span class="badge badge-success">Ativo</span>
+                            {%else%}
+                            <span class="badge badge-danger">Inativo</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="project-actions text-right">
+                            <a class="btn btn-info btn-sm" href="{{url()}}produtos/edit/{{prod.prod_id}}">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Editar
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="{{url()}}produtos/delete/{{prod.prod_id}}">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Deletar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+<div>
+
+</div>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Tem certeza que deseja excluir isso?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btn-confirm-deletar">Sim</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const URL = 'http://admin.erise.com.br';
+        $("#btn-confirm-deletar").click(function(e) {
+          e.preventDefault();
+            var data = $('button#btn-deletar').attr('data-url-del-banner');
+
+            $.ajax({
+                url: URL + '/produtos/delete/' + data,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if(response.status != 0){
+                        location.reload();
+                    }
+                    console.log(response);
+                },
+                error: function(jqXHR, JQueryXHR, textStatus, errorThrown) {
+                    console.log(jqXHR + '' + JQueryXHR + '' + textStatus + '' + errorThrown);
+                }
+            });
+        });
+</script>
+</div>
+{% endblock %}

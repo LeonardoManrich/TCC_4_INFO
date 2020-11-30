@@ -1,0 +1,79 @@
+{% extends 'master.html' %} {% block master %}
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="col-sm-8">
+            <form id="form">
+                <div class="form-group">
+                    <label for="oldpass">Senha atual</label>
+                    <input id="oldpass" type="password" class="form-control" name="oldpass">
+                </div>
+
+                <div class="form-group">
+                    <label for="newpass">Nova senha</label>
+                    <input id="newpass" type="password" class="form-control" name="newpass">
+                </div>
+                
+                <div id="response"></div>
+                
+                <button type="button" id="salvar" class="btn btn-danger btn-lg">Trocar Senha</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+
+            $("#salvar").click(function(e) {
+                e.preventDefault();
+                var formData = new FormData($('#form')[0]);
+                $.ajax({
+                    url: '{{ url() }}/password/change',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log(response.message);
+                        if (response.status != 1) {
+                            $("#oldpass").addClass('is-valid').removeClass('is-invalid');
+                            $("#newpass").addClass('is-valid').removeClass('is-invalid');
+                            const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                            });
+                            Toast.fire({
+                                icon: 'success',
+                                title: response.message
+                            })
+                            $("#oldpass").val('');
+                            $("#newpass").val('');
+                        } else {
+                            $("#oldpass").addClass('is-invalid').removeClass('is-valid');
+                            $("#newpass").addClass('is-invalid').removeClass('is-valid');
+                            const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                            });
+                            Toast.fire({
+                                icon: 'error',
+                                title: response.message
+                            })
+                            $("#oldpass").val('');
+                            $("#newpass").val('');
+                        }
+                    },
+                    error: function() {
+                        $("div#response").html('Houve algum problema, tente novamente mais tarde!');
+                    }
+                });
+            });
+        });
+    </script>
+</div>
+{% endblock %}

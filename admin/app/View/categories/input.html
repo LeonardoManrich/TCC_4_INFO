@@ -1,0 +1,139 @@
+{% extends 'master.html' %} {% block master %}
+<div class="content">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title"></h3>
+        </div>
+        {% if act != 'edit' %}
+        <form id="categorie">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nome</label>
+                    <input type="text" class="form-control" id="catname" placeholder="Nome" name="catname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Slug</label>
+                    <input type="text" class="form-control" id="catslug" placeholder="slug" name="catslug" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="catstatus">Status</label>
+                    <select class="form-control" id="statuscat" name="catstatus">
+                        <option value="1">Ativo</option>
+                        <option value="0">Inativo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="desc">Descrição</label>
+                    <textarea class="form-control" name="catdesc"></textarea>
+                </div>
+                <div class="col">
+                    <div class="help-block"></div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" id="btn-enviar">Cadastrar</button>
+            </div>
+        </form>
+        {% else %}
+        <form id="categorie">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nome</label>
+                    <input type="text" class="form-control" id="catname" placeholder="Nome" name="catname" value="{{categorias.cat_name}}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Slug</label>
+                    <input type="text" class="form-control" id="catslug" placeholder="slug" name="catslug" value="{{categorias.cat_slug}}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="catstatus">Status</label>
+                    <select class="form-control" id="statuscat" name="catstatus">
+                        {% if categorias.cat_status == 1 %}
+                            <option value="1" selected="selected">Ativo</option>
+                            <option value="0">Inativo</option>
+                        {% else %}
+                            <option value="1">Ativo</option>
+                            <option value="0" selected="selected">Inativo</option>
+                        {% endif %}
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="desc">Descrição</label>
+                    <textarea class="form-control" name="catdesc">{{categorias.cat_desc}}</textarea>
+                </div>
+                <div class="col">
+                    <div class="help-block"></div>
+                </div>
+            </div>
+            <input type="hidden" value="{{categorias.cat_id}}" name="catid">
+            <div class="card-footer">
+                <button class="btn btn-primary" id="btn-editar">Editar</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+<script>
+    $(function () {
+        const URL = 'http://admin.erise.com.br';
+        $("#btn-enviar").click(function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#categorie')[0]);
+            $.ajax({
+                url: URL + '/categorias/new',
+                type: 'POST',
+                data: formData,
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.status != 0) {
+                        $("input").removeClass('is-invalid').addClass('is-valid');
+                        $("textarea").removeClass('is-invalid').addClass('is-valid');
+                        $('.help-block').html(response.message);
+                        window.location.href = URL + '/categorias';
+                    } else {
+                        $("input").removeClass('is-valid').addClass('is-invalid');
+                        $("textarea").removeClass('is-valid').addClass('is-invalid');
+                        $('.help-block').html(response.message);
+                    }
+                },
+                error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+                    $("input").removeClass('is-valid').addClass('is-invalid');
+                    $('.help-block').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+                }
+            });
+        });
+
+        $("#btn-editar").click(function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#categorie')[0]);
+            $.ajax({
+                url: URL + '/categorias/update',
+                type: 'POST',
+                data: formData,
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.status != 0) {
+                        $("input").removeClass('is-invalid').addClass('is-valid');
+                        $("textarea").removeClass('is-invalid').addClass('is-valid');
+                        $('.help-block').html(response.message);
+                        window.location.href = URL + '/categorias';
+                    } else {
+                        $("input").removeClass('is-valid').addClass('is-invalid');
+                        $("textarea").removeClass('is-valid').addClass('is-invalid');
+                        $('.help-block').html(response.message);
+                    }
+                },
+                error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+                    $("input").removeClass('is-valid').addClass('is-invalid');
+                    $('.help-block').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

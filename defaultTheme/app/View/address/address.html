@@ -1,0 +1,83 @@
+{% extends 'master.html'%}
+{% block master %}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Qual o seu endereço?</p>
+
+            <form id="store-user-register-address" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="cep" name="cep" id="cep">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Bairro" name="neighborhood" id="bairro">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Rua" name="street" id="rua">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Número" name="number" required>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Complemento" name="complement">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cidade" name="city" id="cidade">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Estado" name="uf" id="uf">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="help-block"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-5">
+                        <button type="submit" id="btn-register-store-user-address"
+                            class="btn btn-primary btn-block">Cadastrar</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+        </div>
+        <!-- /.form-box -->
+    </div>
+</div>
+
+<script>
+    $(function () {
+      const URL = "{{url()}}";
+      $("#btn-register-store-user-address").click(function (e) {
+        e.preventDefault();
+        var formData = new FormData($('#store-user-register-address')[0]);
+        console.log(formData)
+        $.ajax({
+          url: URL + '/carrinho/updateAddress',
+          type: 'POST',
+          data: formData,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            console.log(response.message);
+            if (response.status != 0) {
+              $("input").removeClass('is-invalid').addClass('is-valid');
+              $('.help-block').html(response.message);
+              window.location.href = '{{url()}}carrinho';
+            } else {
+              $("input").addClass('is-invalid').removeClass('is-valid');
+              $('.help-block').html(response.message);
+            }
+          },
+          error: function () {
+            console.log('erro');
+            $("input").addClass('is-invalid').removeClass('is-valid');
+          }
+        });
+      });
+    });
+  </script>
+{% endblock %}

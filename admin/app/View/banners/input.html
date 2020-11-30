@@ -1,0 +1,256 @@
+{% extends 'master.html'%} {% block master %}
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <!-- /.col -->
+
+  </div><!-- /.container-fluid -->
+</div><!-- /.content -->
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Cadastrar Banner</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            {% if act != 'edit' %}
+            <form method="POST" id="banner" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="descbanner">Descrição</label>
+                <textarea name="descbanner" class="form-control" id="descbanner" cols="20" rows="5"
+                  placeholder="Descrição"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="urlbanner">Link</label>
+                <input type="text" class="form-control" id="urlbanner" placeholder="Link" name="urlbanner">
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label for="statusbanner">Status</label>
+                    <select class="form-control" id="statusbanner" name="statusbanner">
+                      <option value="1">Ativo</option>
+                      <option value="0">Inativo</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="startdate">Data inicio:</label>
+                    <div class="input-group date" id="startdate">
+                      <input type="date" name="startdate" min="{{date('Y-m-d')}}" max="3000-12-31" class="form-control"
+                        value="{{date('Y-m-d')}}">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="enddate">Data fim:</label>
+                    <div class="input-group date" id="enddate">
+                      <input type="date" name="enddate" min="{{date('Y-m-d')}}" max="3000-12-31" class="form-control"
+                        value="0000-00-00">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="banner">Enviar Imagem</label>
+
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="banner" name="banner">
+                      <label class="custom-file-label" for="banner">Escolher Arquivo</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-4 p-0" style="border: 1px solid gray;">
+
+            <img src="" alt="" class="img-fluid" id="imagem" style="
+            min-width: 100%;
+            min-height: -webkit-fill-available;
+            object-fit: fill;">
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row">
+            <button class="btn btn-primary" id="btn-enviar">Enviar</button>
+          </div>
+        </div>
+        </form>
+
+        
+        {% else %}
+            <form method="POST" id="banner" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="descbanner">Descrição</label>
+                <textarea name="descbanner" class="form-control" id="descbanner" cols="20" rows="5"
+                  placeholder="Descrição">{{banner.banner_desc}}</textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="urlbanner">Link</label>
+                <input type="text" class="form-control" id="urlbanner" placeholder="Link" name="urlbanner" value="{{banner.banner_url}}">
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label for="statusbanner">Status</label>
+                    <select class="form-control" id="statusbanner" name="statusbanner">
+                      {% if banner.banner_status == 1%}
+                        <option value="1" selected="selected">Ativo</option>
+                        <option value="0">Inativo</option>
+                      {% else %}
+                      <option value="1">Ativo</option>
+                      <option value="0" selected="selected">Inativo</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="startdate">Data inicio:</label>
+                    <div class="input-group date" id="startdate">
+                      <input type="date" name="startdate" min="{{date('Y-m-d')}}" max="3000-12-31" class="form-control"
+                      value="{{banner.banner_datestart}}">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="enddate">Data fim:</label>
+                    <div class="input-group date" id="enddate">
+                      <input type="date" name="enddate" min="{{date('Y-m-d')}}" max="3000-12-31" class="form-control"
+                      value="{{banner.banner_dateend}}">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="banner">Enviar Imagem</label>
+
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="banner" name="banner">
+                      <label class="custom-file-label" for="banner">Escolher Arquivo</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-4 p-0" style="border: 1px solid gray;">
+
+            <img src="{{urlStore()}}/files/banners-home/{{banner.banner_img}}" class="img-fluid" id="imagem" style="
+            min-width: 100%;
+            min-height: -webkit-fill-available;
+            object-fit: fill;">
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row">
+            <button class="btn btn-primary" id="btn-editar">Enviar</button>
+          </div>
+        </div>
+        <input type="hidden" value="{{banner.banner_id}}" name="idb">
+        <input type="hidden" value="{{banner.banner_img}}" name="img">
+        </form>
+        {% endif %}
+        <div class="col-sm-5 mt-3">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="help-block"><br></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+<script>
+
+  $(function () {
+    const URL = 'http://admin.erise.com.br';
+    $("#btn-enviar").click(function (e) {
+      e.preventDefault();
+      var formData = new FormData($('#banner')[0]);
+      $.ajax({
+        url: URL + '/banner/new',
+        type: 'POST',
+        data: formData,
+        dataType: 'JSON',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          if (response.status != 0) {
+            $("input").removeClass('is-invalid').addClass('is-valid');
+            $('.help-block').html(response.message);
+            window.location.href = URL + '/banner';
+          } else {
+            $("input").removeClass('is-valid').addClass('is-invalid');
+            $('.help-block').html(response.message);
+          }
+        },
+        error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+          $("input").removeClass('is-valid').addClass('is-invalid');
+          $('.help-block').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+        }
+      });
+    });
+
+    $("#btn-editar").click(function (e) {
+      e.preventDefault();
+      var formData = new FormData($('#banner')[0]);
+      $.ajax({
+        url: URL + '/banner/update',
+        type: 'POST',
+        data: formData,
+        dataType: 'JSON',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          if (response.status != 0) {
+            $("input").removeClass('is-invalid').addClass('is-valid');
+            $('.help-block').html(response.message);
+            window.location.href = URL + '/banner';
+          } else {
+            $("input").removeClass('is-valid').addClass('is-invalid');
+            $('.help-block').html(response.message);
+          }
+        },
+        error: function (jqXHR, JQueryXHR, txtStatus, errorThrown) {
+          $("input").removeClass('is-valid').addClass('is-invalid');
+          $('.help-block').html(jqXHR + ' ' + JQueryXHR + ' ' + txtStatus + ' ' + errorThrown);
+        }
+      });
+    });
+
+    $("input[type=file]").on("change", function(){
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return;
+ 
+        if (/^image/.test( files[0].type)){
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+ 
+            reader.onload = function(){
+                $("#imagem").attr('src', this.result);
+            }
+        }
+    });
+  });
+
+</script>
+
+{% endblock %}

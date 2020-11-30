@@ -1,0 +1,134 @@
+{% extends 'master.html' %} {% block master %}
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Banners</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-primary">
+                    <a href="{{url()}}banner/novo" class="text-light">
+                        Novo
+                    </a>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">
+
+                        </th>
+                        <th style="width: 15%">
+                            Inicio
+                        </th>
+                        <th style="width: 15%">
+                            Fim
+                        </th>
+                        <th style="width: 8%" class="text-center">
+                            Status
+                        </th>
+                        <th style="width: 20%">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bann in banners %}
+                    <tr>
+                        <td>
+                            <img src="{{ urlStore() }}/files/banners-home/{{ bann.banner_img }}"
+                                alt="{{ bann.banner_img }}" class="img-thumbnail rounded" style="max-height: 70px;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    min-width: 100%;
+                                    max-width: 144px;
+                                ">
+                        </td>
+                        <td>
+                            {{bann.banner_datestart}}
+                        </td>
+                        <td>
+                            {{bann.banner_dateend}}
+                        </td>
+
+                        <td class="project-state">
+                            {% if bann.banner_status == 1 %}
+                            <span class="badge badge-success">Ativo</span>
+                            {%else%}
+                            <span class="badge badge-danger">Inativo</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="project-actions text-right">
+                            <a class="btn btn-info btn-sm" href="{{url()}}banner/edit/{{bann.banner_id}}">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Editar
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="{{url()}}banner/delete/{{bann.banner_id}}">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Deletar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+<div>
+
+</div>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Tem certeza que deseja excluir isso?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btn-confirm-deletar">Sim</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const URL = 'http://admin.erise.com.br';
+        $("#btn-confirm-deletar").click(function(e) {
+          e.preventDefault();
+            var data = $('button#btn-deletar').attr('data-url-del-banner');
+
+            $.ajax({
+                url: URL + '/banner/delete/'+data,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if(response.status != 0){
+                        location.reload();
+                    }
+                    console.log(response);
+                },
+                error: function(jqXHR, JQueryXHR, textStatus, errorThrown) {
+                    console.log(jqXHR + '' + JQueryXHR + '' + textStatus + '' + errorThrown);
+                }
+            });
+        });
+</script>
+</div>
+{% endblock %}

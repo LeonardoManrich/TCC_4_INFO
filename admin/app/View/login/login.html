@@ -1,0 +1,46 @@
+{% extends 'master-login.html'%}{% block masterlogin %}
+<div class="login-box">
+    <div class="login-logo">
+      <a href="{{url()}}"><b>E</b>Rise</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Logue para continuar a sua sessão</p>
+  
+        <form id="eriselogin">
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Senha" id="password" name="password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- /.col -->
+            <div class="col-4">
+              <button id="btn-login" class="btn btn-primary btn-block">Logar</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+        <div class="help-block"></div>
+        <p class="mb-1">
+          <a href="{{url()}}login/forget">Esqueci minha senha</a>
+        </p>
+
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div>
+  <!-- /.login-box -->
+  {% endblock %}
